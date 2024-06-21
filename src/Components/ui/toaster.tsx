@@ -9,7 +9,6 @@ import {
   ToastViewport,
 } from "@/components/ui/toast"
 import { useToast } from "@/Components/ui/use-toast"
-
 export function Toaster() {
   const { toasts } = useToast()
 
