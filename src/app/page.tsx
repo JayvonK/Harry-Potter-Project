@@ -1,7 +1,7 @@
 'use client'
 
-import { IWizard } from "@/Interfaces/Interfaces";
-import { GetAllCharacters } from "@/utils/DataServices/Services";
+import { ISpell, IWizard } from "@/Interfaces/Interfaces";
+import { GetAllCharacters, GetAllSpells } from "@/utils/DataServices/Services";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
@@ -17,11 +17,13 @@ import {
 } from "@/Components/ui/alert-dialog"
 import { Button } from "@/Components/ui/button";
 import { useToast } from "@/Components/ui/use-toast";
+import ABCSpellComponent from "@/Components/ABCSpellComponent";
 
 
 export default function Home() {
 
-  const [wizards, setWizards] = useState<IWizard[]>([])
+  const [wizards, setWizards] = useState<IWizard[]>([]);
+  const [spells, setSpells] = useState<ISpell[]>([]);
 
   const [mainPage, setMainPage] = useState<boolean>(true);
   const [wizardsPage, setWizardsPage] = useState<boolean>(false);
@@ -35,6 +37,11 @@ export default function Home() {
     const data: IWizard[] = await GetAllCharacters();
     setWizards(data);
     console.log(data);
+  }
+
+  const GetAllSpellsArray = async () => {
+    const spell: ISpell[] = await GetAllSpells();
+    setSpells(spell);
   }
 
   const handleBooksClick = () => {
@@ -81,6 +88,7 @@ export default function Home() {
 
   useEffect(() => {
     GetAllWizards();
+    GetAllSpellsArray();
   }, [])
 
   return (
@@ -98,20 +106,20 @@ export default function Home() {
         </div>
 
         <div className="flex justify-center">
-          <img className="w-52 hover:cursor-pointer" src="/images/Harry-Potter-Logo.png" alt="Harry Potter Logo" onClick={handleMainPageClick}/>
+          <img className="w-52 hover:cursor-pointer" src="/images/Harry-Potter-Logo.png" alt="Harry Potter Logo" onClick={handleMainPageClick} />
         </div>
 
         <div className="flex items-center mr-12">
           <h2 className="text-white mr-5 text-xl">SEARCH:</h2>
-          {mainPage ? <button className="w-full text-xl py-2 rounded-md pl-2 bg-gray-300 text-left text-gray-500" onClick={errorToast}>Type Here</button> : <input className="w-full text-xl py-2 rounded-md pl-2 bg-white" type="text" placeholder="Type Here"/>}
+          {mainPage ? <button className="w-full text-xl py-2 rounded-md pl-2 bg-gray-300 text-left text-gray-500" onClick={errorToast}>Type Here</button> : <input className="w-full text-xl py-2 rounded-md pl-2 bg-white" type="text" placeholder="Type Here" />}
         </div>
 
       </nav>
 
-      <div className="z-40 relative mx-12">
+      {mainPage && <div className="z-40 relative mx-12">
         <img className="w-full h-[650px] object-cover object-top border border-white rounded-md brightness-75" src="/images/PotterBG.jpg" alt="" />
         {/* <div className="HPFont text-3xl absolute text-white">Welcome to the PotterPedia</div> */}
-      </div>
+      </div>}
 
       {
         wizardsPage && <div className="grid grid-cols-7 gap-4 relative z-40 mx-12 mt-20">
@@ -144,8 +152,6 @@ export default function Home() {
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
-
-
                 </div>
               )
             })
@@ -153,9 +159,9 @@ export default function Home() {
         </div>
       }
 
-      <div className="z-50 w-full h-full bg-black opacity-80">
-
-      </div>
+      {
+        spellsPage && <ABCSpellComponent spells={spells} />
+      }
 
     </main>
   );

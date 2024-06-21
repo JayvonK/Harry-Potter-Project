@@ -22,3 +22,8 @@ export interface IWand {
     cor: string,
     length: number;
 }
+
+export interface ISpell {
+    name: string,
+    description: string
+}
