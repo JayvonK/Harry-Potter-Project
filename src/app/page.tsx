@@ -130,8 +130,8 @@ export default function Home() {
           {
             wizards.filter(wizard => wizard.name === "Harry Potter" || wizard.name === "Severus Snape" || wizard.name === "Lord Voldemort" || wizard.name === "Albus Dumbledore" || wizard.name === "Rubeus Hagrid" || wizard.name === "Ron Weasley" || wizard.name === "Hermione Granger").map((w, idx) => {
               return (
-                <div className="flex justify-center flex-col items-center rounded-md ">
-                  <CharacterCardComponent w={w} key={idx} />
+                <div key={idx} className="flex justify-center flex-col items-center rounded-md ">
+                  <CharacterCardComponent w={w}  />
                 </div>
               )
             })
