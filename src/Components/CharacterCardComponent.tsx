@@ -62,8 +62,8 @@ const CharacterCardComponent = (props: { w: IWizard }) => {
                   <div>
                     <h2>Alternate Names:</h2>
                     {
-                      props.w.alternate_names.length !== 0 ? props.w.alternate_names.map(name => (
-                        <h3>{name}</h3>
+                      props.w.alternate_names.length !== 0 ? props.w.alternate_names.map((name, idx) => (
+                        <h3 key={name + idx}>{name}</h3>
                       )) : <h3>None</h3>
                     }
                   </div>
