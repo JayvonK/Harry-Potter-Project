@@ -32,6 +32,8 @@ export default function Home() {
   const [spellsPage, setSpellsPage] = useState<boolean>(false);
   const [moviesPage, setMoviesPage] = useState<boolean>(false);
 
+  const [currentSearch, setCurrentSearch] = useState<string>("");
+
   const { toast } = useToast();
 
   const GetAllWizards = async () => {
@@ -78,6 +80,11 @@ export default function Home() {
     setMainPage(false);
   }
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentSearch(e.target.value)
+    console.log(e.target.value)
+  }
+
   const errorToast = () => {
     alert("Please Select One of the Categories in the Navigation Bar")
     toast({
@@ -86,6 +93,7 @@ export default function Home() {
       description: "Please Select One of the Categories in the Navigation Bar",
     })
   }
+
 
   useEffect(() => {
     GetAllWizards();
@@ -112,7 +120,7 @@ export default function Home() {
 
         <div className="flex items-center mr-12">
           <h2 className="text-white mr-5 text-xl">SEARCH:</h2>
-          {mainPage ? <button className="w-full text-xl py-2 rounded-md pl-2 bg-gray-300 text-left text-gray-500" onClick={errorToast}>Type Here</button> : <input className="w-full text-xl py-2 rounded-md pl-2 bg-white" type="text" placeholder="Type Here" />}
+          {mainPage ? <button className="w-full text-xl py-2 rounded-md pl-2 bg-gray-300 text-left text-gray-500" onClick={errorToast}>Type Here</button> : <input className="w-full text-xl py-2 rounded-md pl-2 bg-white" type="text" placeholder="Type Here" onChange={handleSearchChange}/>}
         </div>
 
       </nav>
@@ -144,7 +152,11 @@ export default function Home() {
       {
         wizardsPage && <div className="grid grid-cols-7 gap-4 relative z-40 mx-12 mt-20">
           {
-            wizards.map((w, idx) => {
+            currentSearch.trim() === "" ? wizards.map((w, idx) => {
+              return (
+                <CharacterCardComponent w={w} key={idx} />
+              )
+            }) : wizards.filter(w => w.name.toLowerCase().includes(currentSearch.toLowerCase())).map((w, idx) => {
               return (
                 <CharacterCardComponent w={w} key={idx} />
               )
