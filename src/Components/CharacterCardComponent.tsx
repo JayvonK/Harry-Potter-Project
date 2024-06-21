@@ -41,7 +41,7 @@ const CharacterCardComponent = (props: { w: IWizard }) => {
 
                   <div>
                     <h2>Birthday:</h2>
-                    <h3>{props.w.dateOfBirth  === "" ? "None" : props.w.dateOfBirth}</h3>
+                    <h3>{props.w.dateOfBirth === null ? "None" : props.w.dateOfBirth}</h3>
                   </div>
 
                   <div>
