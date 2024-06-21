@@ -101,7 +101,7 @@ export default function Home() {
           <h2 className="text-white text-xl hover:cursor-pointer" onClick={handleBooksClick}>BOOKS</h2>
           <h2 className="text-white text-xl hover:cursor-pointer" onClick={handleMoviesClick} >MOVIES</h2>
           <h2 className="text-white text-xl hover:cursor-pointer" onClick={handleSpellsClick}>SPELLS</h2>
-          <h2 className="text-white text-xl hover:cursor-pointer" onClick={handleWizardsClick}>WIZARDS</h2>
+          <h2 className="text-white text-xl hover:cursor-pointer" onClick={handleWizardsClick}>CHARACTERS</h2>
 
         </div>
 
@@ -117,8 +117,51 @@ export default function Home() {
       </nav>
 
       {mainPage && <div className="z-40 relative mx-12">
-        <img className="w-full h-[650px] object-cover object-top border border-white rounded-md brightness-75" src="/images/PotterBG.jpg" alt="" />
+        <img className="w-full h-[550px] object-cover object-top border border-white rounded-md brightness-75" src="/images/PotterBG.jpg" alt="" />
         {/* <div className="HPFont text-3xl absolute text-white">Welcome to the PotterPedia</div> */}
+
+        <div className="flex justify-between HPFont mt-8 mb-4">
+          <h1 className="text-4xl text-white">Top Characters</h1>
+          <h1 className="text-4xl text-white underline hover:cursor-pointer" onClick={handleWizardsClick}>View All</h1>
+        </div>
+
+        <div className="grid grid-cols-7 pt-4 pb-8">
+          {
+            wizards.filter(wizard => wizard.name === "Harry Potter" || wizard.name === "Severus Snape" || wizard.name === "Lord Voldemort" || wizard.name === "Albus Dumbledore" || wizard.name === "Rubeus Hagrid" || wizard.name === "Ron Weasley" || wizard.name === "Hermione Granger").map((w, idx) => {
+              return (
+                <div className="flex justify-center flex-col items-center rounded-md ">
+                  <AlertDialog >
+                    <AlertDialogTrigger asChild>
+                      <div className="w-48 border shadow-lg shadow-gray-500 hover:shadow-yellow-500 rounded-md hover:cursor-pointer">
+                        <img className="object-cover w-full h-56" src={w.image.trim() !== "" ? w.image : "/images/dumbledore.png"} alt="" />
+                        <div className="bg-black p-6 w-full">
+                          <h1 className="text-white HPFont">{w.name}</h1>
+                        </div>
+                      </div>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <div className="flex">
+                          <img className="object-cover aspect-square w-16 rounded-full" src={w.image.trim() !== "" ? w.image : "/images/dumbledore.png"} alt="" />
+                          <h2 className="ml-5 text-2xl flex items-center HPFont">{w.name}</h2>
+                        </div>
+
+                        <div className="grid grid-cols-3">
+
+                        </div>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogAction>Close</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
+              )
+            })
+          }
+        </div>
+
+
       </div>}
 
       {
@@ -130,7 +173,7 @@ export default function Home() {
                   <AlertDialog >
                     <AlertDialogTrigger asChild>
                       <div className="w-48 border shadow-lg shadow-gray-500 hover:shadow-yellow-500 rounded-md hover:cursor-pointer">
-                        <img className="object-cover w-full h-56" src={w.image.trim() !== "" ? w.image : "/images/Harry.jpg"} alt="" />
+                        <img className="object-cover w-full h-56" src={w.image.trim() !== "" ? w.image : "/images/blankpfp.png"} alt="" />
                         <div className="bg-black p-6 w-full">
                           <h1 className="text-white HPFont">{w.name}</h1>
                         </div>
@@ -139,7 +182,7 @@ export default function Home() {
                     <AlertDialogContent>
                       <AlertDialogHeader>
                         <div className="flex">
-                          <img className="object-cover aspect-square w-16 rounded-full" src={w.image.trim() !== "" ? w.image : "/images/Harry.jpg"} alt="" />
+                          <img className="object-cover aspect-square w-16 rounded-full" src={w.image.trim() !== "" ? w.image : "/images/blankpfp.png"} alt="" />
                           <h2 className="ml-5 text-2xl flex items-center HPFont">{w.name}</h2>
                         </div>
 
